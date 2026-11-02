@@ -413,3 +413,34 @@ During a VHF/UHF contest, in which band segment would you expect to find the hig
 
 - ✅ **Correct answer:** **C.** In the weak signal segment of the band, with most of the activity near the calling frequency
 - ❌ **You chose:** **D.** In the middle of the band, usually 25 kHz above the national calling frequency
+
+---
+
+# Session 2 — Merging a second failed exam
+
+**Date:** 2026-11-02
+
+## Request
+
+> I just put a new complete web page into this folder. It's the second failed exam. Merge all of the questions I got wrong here in with the previous results.
+
+## What happened
+
+- The first save of `HamStudy.org_ Ham Radio Practice Test.html` was only the "Exam Failed" results screen (score 31/50 and a chart of misses per section), with no questions. The user re-saved it from the "Review questions" screen.
+- The re-saved page is "Webpage, Complete" (`.html` plus a `_files/` folder) and uses the same `flashcard_container` / `li.answer` markup as the first exam. Figures point at local copies (e.g. `./..._files/E5-1.png`).
+
+## Script changes (`missed_questions.py`)
+
+- Reads any number of exams, as `.mhtml` or `.html`. With no arguments it uses every `.mhtml`/`.html` file in the folder, oldest first. The output path is now `-o/--output`.
+- Figures are read only from a question's `div.image`. Local figure paths are rewritten to `https://hamstudy.org/api/pools/<pool>/images/<name>` so the links work anywhere.
+- Misses are merged by question ID. Each question appears once with the correct answer and one ❌ line per exam where it was missed. Questions missed more than once are marked 🔁 and listed first; the rest are in question-pool order.
+- Pages with no questions (such as a results screen) are skipped.
+
+## Result
+
+| Exam | File | Score | Missed |
+|---|---|---|---|
+| 1 | `HamStudy.org_ Ham Radio Practice Test.mhtml` | 30/50 | 20 |
+| 2 | `HamStudy.org_ Ham Radio Practice Test.html` | 31/50 | 19 |
+
+38 different questions missed. Only E9A09 ("What is antenna efficiency?") was missed on both exams, with a different wrong answer each time.
